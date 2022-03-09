@@ -1,0 +1,18 @@
+{
+    "name": "maltavailability",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha -b ./tests --timeout=30000"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "chai": "^4.3.6",
+        "dotenv": "^16.0.0",
+        "mocha": "^9.2.1",
+        "puppeteer-extra": "^3.2.3",
+        "puppeteer-extra-plugin-stealth": "^2.9.0"
+    }
+}
