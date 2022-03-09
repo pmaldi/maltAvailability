@@ -1,12 +1,12 @@
 {
     "name": "maltavailability",
     "version": "1.0.0",
-    "description": "",
+    "description": "Allows to automate the update of the availability on the Malt.fr website",
     "main": "index.js",
     "scripts": {
         "test": "mocha -b ./tests --timeout=30000"
     },
-    "author": "",
+    "author": "Patrice MALDI",
     "license": "ISC",
     "dependencies": {
         "chai": "^4.3.6",
