@@ -28,6 +28,7 @@ To run this project, you will need to add the following environment variables to
 `USER_PASSWORD`=foobar30!<br />
 
 <p><em>Duration between each tests</em></p>
+
 `TESTS_TIMEOUT`=2000
 
 <p><em>AVAILABLE Or NOT_AVAILABLE</em></p>
