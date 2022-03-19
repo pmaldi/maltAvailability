@@ -10,8 +10,12 @@ let page;
 describe("Change Availability on Malt Website", () => {
     before(async() => {
         browser = await puppeteer.launch({
-            headless: false,
-            args: ["--window-size=1920,1080"]
+            headless: true,
+            args: [
+                "--window-size=1920,1080",
+                "--no-sandbox",
+                "--disable-setuid-sandbox"
+            ]
         });
         page = await browser.newPage();
     });
@@ -48,7 +52,6 @@ describe("Change Availability on Malt Website", () => {
     if (process.env.AVAILABLE == "AVAILABLE") {
         it("Select Available", async() => {
             // Click on the Radio button
-            await page.screenshot({ path: "Select Available.png" });
             await page.evaluate(() => {
                 let radio = document.querySelector("#availabilityAVAILABLE");
                 radio.click();
