@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> Allows to automate the update of the availability on the Malt.fr website
+> Allows to automate the update of the availability on the Malt.fr website (Spain, France, Switzerland, Belgium, Netherlands and Germany). The configuration does not need to know the user's country of origin. All actions will work on the en.malt.fr website.
 
 ## Install
 
