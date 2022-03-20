@@ -69,7 +69,7 @@ If no test is in error, it means that everything went well.
 Just run the following command and have fun :
 
 ```sh
-docker run -e USER_EMAIL='<Email>' -e USER_PASSWORD='<Password>' -e TESTS_TIMEOUT=2000 -e AVAILABLE=AVAILABLE -e AVAILABILITY_FREQUENCY=FULL_TIME maltavailability
+docker run -e USER_EMAIL='<Email>' -e USER_PASSWORD='<Password>' -e TESTS_TIMEOUT=2000 -e AVAILABLE=AVAILABLE -e AVAILABILITY_FREQUENCY=FULL_TIME pmaldi/maltavailability
 ```
 
 
