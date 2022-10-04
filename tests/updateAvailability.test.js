@@ -8,7 +8,7 @@ puppeteer.use(StealthPlugin());
 let page;
 
 describe("Change Availability on Malt Website", () => {
-    before(async() => {
+    before(async () => {
         browser = await puppeteer.launch({
             headless: true,
             args: [
@@ -20,17 +20,17 @@ describe("Change Availability on Malt Website", () => {
         page = await browser.newPage();
     });
 
-    beforeEach(async() => {
+    beforeEach(async () => {
         await new Promise((resolve) =>
             setTimeout(resolve, process.env.TESTS_TIMEOUT)
         );
     });
 
-    it("GoTo Main Page", async() => {
+    it("GoTo Main Page", async () => {
         await page.goto("https://en.malt.fr/signin");
     });
 
-    it("Fill the connection form", async() => {
+    it("Fill the connection form", async () => {
         // Fill the email field
         await page.focus("#j_username");
         await page.keyboard.type(process.env.USER_EMAIL);
@@ -45,12 +45,19 @@ describe("Change Availability on Malt Website", () => {
         );
     });
 
-    it("Switch to Profile", async() => {
+    it("Switch to Profile", async () => {
         await page.goto("https://en.malt.fr/profile#edit-availability");
     });
 
+    it("Accepte Legal Popup if present", async () => {
+        await page.evaluate(() => {
+            let accept = document.querySelector("#legalAcceptCta > button");
+            accept.click();
+        });
+    });
+
     if (process.env.AVAILABLE == "AVAILABLE") {
-        it("Select Available", async() => {
+        it("Select Available", async () => {
             // Click on the Radio button
             await page.evaluate(() => {
                 let radio = document.querySelector("#availabilityAVAILABLE");
@@ -63,26 +70,26 @@ describe("Change Availability on Malt Website", () => {
             expect(checkAvailable).to.be.true;
         });
 
-        it("Select Frequency", async() => {
+        it("Select Frequency", async () => {
             page.select("#frequency", process.env.AVAILABILITY_FREQUENCY);
         });
 
-        it("Submit the availability", async() => {
+        it("Submit the availability", async () => {
             // Click on the Submit button
             await page.click(
-                "#profileAvailability > form > div > div > button.m-btn.m-btn_default.m-btn_small"
+                "#profileAvailability > form > div > div > joy-button:nth-child(2) > button"
             );
         });
 
-        it("Check Updated Status", async() => {
+        it("Check Updated Status", async () => {
             const availability = await page.$eval(
-                "#profileAvailabilityEdit > joy-availability",
+                "#profileAvailabilityEdit > joy-tooltip-trigger > div > joy-availability",
                 (el) => el.label
             );
             expect(availability).to.include("Available (confirmed)");
         });
     } else {
-        it("Select Not Available", async() => {
+        it("Select Not Available", async () => {
             // Click on the Radio button
             await page.evaluate(() => {
                 let radio = document.querySelector("#availabilityNOT_AVAILABLE");
@@ -95,7 +102,7 @@ describe("Change Availability on Malt Website", () => {
             expect(checkAvailable).to.be.true;
         });
 
-        it("Select Frequency Being Available", async() => {
+        it("Select Frequency Being Available", async () => {
             // Click on the Radio button
             if (process.env.NOT_AVAILABLE != "CUSTOM_DATE") {
                 const frequency =
@@ -120,23 +127,23 @@ describe("Change Availability on Malt Website", () => {
             }
         });
 
-        it("Submit the availability", async() => {
+        it("Submit the availability", async () => {
             // Click on the Submit button
             await page.click(
-                "#profileAvailability > form > div > div > button.m-btn.m-btn_default.m-btn_small"
+                "#profileAvailability > form > div > div > joy-button:nth-child(2) > button"
             );
         });
 
-        it("Check Updated Status", async() => {
+        it("Check Updated Status", async () => {
             const availability = await page.$eval(
-                "#profileAvailabilityEdit > joy-availability",
+                "#profileAvailabilityEdit > joy-tooltip-trigger > div > joy-availability",
                 (el) => el.label
             );
             expect(availability).to.include("Available at a later");
         });
     }
 
-    after(async() => {
+    after(async () => {
         await browser.close();
     });
 });
